@@ -9,6 +9,8 @@ export interface ParsedIRealDocument {
   title: string;
   artist: string;
   content: DocumentContent;
+  /** Descrambled chart source text, kept for review/source display. */
+  sourceChart: string;
 }
 
 /**
@@ -17,10 +19,12 @@ export interface ParsedIRealDocument {
  */
 export function parseIRealUrl(input: string): ParsedIRealDocument[] {
   return splitEnvelope(input).map((song) => {
-    const chart = parseChart(descramble(song.rawChart));
+    const sourceChart = descramble(song.rawChart);
+    const chart = parseChart(sourceChart);
     return {
       title: song.title,
       artist: song.composer,
+      sourceChart,
       content: {
         meta: {
           key: song.key || undefined,

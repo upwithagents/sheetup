@@ -24,6 +24,13 @@ describe("parseIRealUrl", () => {
     }
   });
 
+  it("exposes the descrambled source chart per document", () => {
+    const [doc] = parseIRealUrl(fixture("tiny"));
+    expect(doc.sourceChart.trim()).toBe(
+      "|T34< >C,D,F#-,B7,|E-,E,A-,D7,|G,F#-,B7,E-,|D-,G7,C,D-7,|F,G7,C |"
+    );
+  });
+
   it("produces content that survives the model round trip", () => {
     const [doc] = parseIRealUrl(fixture("twoSongsInHTML"));
     expect(parseContent(serializeContent(doc.content))).toEqual(doc.content);
