@@ -4,7 +4,7 @@
 // lyric lines like "A" or "A B C D E F G" don't read as chords.
 
 const CHORD_RE =
-  /^[A-G][#b]?(?:maj|min|dim|aug|sus|add|m|M|[-+°ø])*\d*(?:[#b]\d+)*(?:(?:maj|min|dim|aug|sus|add)\d*)*(?:\/[A-G][#b]?)?$/;
+  /^[A-G][#b]?(?:maj|min|dim|aug|sus|add|m|M|[-+°ø]|o(?=\d))*\d*(?:[#b]\d+)*(?:(?:maj|min|dim|aug|sus|add)\d*)*(?:\/[A-G][#b]?)?$/;
 
 /** Decorations that may ride along on a chord line without disqualifying it. */
 const DECORATION_RE = /^(?:x\d+|X\d+|\/+|%|-|–|\.+)$/;
@@ -31,4 +31,14 @@ export function classifyLine(line: string): "chords" | "text" | "blank" {
   if (tokens.length === 0) return "blank";
   if (!tokens.every(isChordToken)) return "text";
   return tokens.some(isQualified) ? "chords" : "text";
+}
+
+/**
+ * True when every token is a chord token, even if none is qualified (e.g.
+ * "C G"). Too weak to classify a line as chords on its own, but strong
+ * enough when the line sits directly above a lyric line.
+ */
+export function isAllChordTokens(line: string): boolean {
+  const tokens = chordTokens(line);
+  return tokens.length > 0 && tokens.every(isChordToken);
 }
