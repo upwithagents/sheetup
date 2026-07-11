@@ -1,0 +1,19 @@
+{
+  "_note": "Fixture links come from the MIT-licensed ireal-reader package (github.com/pianosnake/ireal-reader) spec fixtures; expectations below derived by hand from the decoded charts.",
+  "tiny": {
+    "songs": 1,
+    "first": { "title": "T", "composer": "f", "style": "Afro", "key": "C", "bpm": 140 }
+  },
+  "threeSongs": {
+    "songs": 3,
+    "first": { "title": "Craigslistlieder", "composer": "Composer Unknown", "style": "Medium Swing", "key": "C" }
+  },
+  "twoSongsInHTML": {
+    "songs": 2,
+    "first": { "title": "Craigslistlieder", "composer": "Composer Unknown", "style": "Medium Swing", "key": "C" }
+  },
+  "django": {
+    "songs": 205,
+    "first": { "title": "After You've Gone dfb", "composer": "Creamer Henry", "style": "Up Tempo Swing", "key": "G" }
+  }
+}
