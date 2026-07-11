@@ -80,7 +80,14 @@ export function parseOcrText(text: string): { kind: DocumentKind; content: Docum
       continue;
     }
 
-    const next = rawLines[i + 1];
+    // Look ahead to the lyric candidate, skipping at most one blank line —
+    // OCR output is often double-spaced, which would otherwise break the
+    // chord-over-lyric pairing.
+    let nextIndex = i + 1;
+    if (nextIndex < rawLines.length && classifyLine(rawLines[nextIndex]) === "blank") {
+      nextIndex += 1;
+    }
+    const next = rawLines[nextIndex];
     const nextIsLyric =
       next !== undefined &&
       classifyLine(next) === "text" &&
@@ -97,7 +104,7 @@ export function parseOcrText(text: string): { kind: DocumentKind; content: Docum
           charIndex: Math.min(c.charIndex, Math.max(next.trimEnd().length - 1, 0)),
         }));
         currentSection().lines.push({ kind: "lyric", text: next.trimEnd(), chords });
-        i += 2;
+        i = nextIndex + 1;
       } else {
         currentSection().lines.push(barsFromChordLine(line));
         i += 1;

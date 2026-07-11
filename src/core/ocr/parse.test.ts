@@ -78,6 +78,22 @@ describe("parseOcrText on arbitrary notes", () => {
   });
 });
 
+describe("parseOcrText on double-spaced OCR output", () => {
+  it("merges chord lines onto lyrics across a single blank line (tesseract double-spacing)", () => {
+    const { kind, content } = parseOcrText(
+      "[Verse 1]\n\nAm7 D7\n\nHello darkness my old friend\n\nG Em7\n\nI have come to talk with you again\n"
+    );
+    expect(kind).toBe("music");
+    const [verse] = content.sections;
+    expect(verse.label).toBe("Verse 1");
+    expect(verse.lines).toHaveLength(2);
+    const [line1, line2] = verse.lines as LyricLine[];
+    expect(line1.text).toBe("Hello darkness my old friend");
+    expect(line1.chords.map((c) => c.symbol)).toEqual(["Am7", "D7"]);
+    expect(line2.chords.map((c) => c.symbol)).toEqual(["G", "Em7"]);
+  });
+});
+
 describe("parseOcrText section heading variants", () => {
   it("recognizes bracketed, colon and ALL-CAPS headings", () => {
     const { content } = parseOcrText(
