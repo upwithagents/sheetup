@@ -1,66 +1,79 @@
-import Image from "next/image";
-import styles from "./page.module.css";
+import Link from "next/link";
+import { db } from "@/lib/db";
 
-export default function Home() {
+export const dynamic = "force-dynamic";
+
+export default async function LibraryPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ project?: string }>;
+}) {
+  const { project: projectFilter } = await searchParams;
+
+  const [projects, documents] = await Promise.all([
+    db.project.findMany({
+      orderBy: { name: "asc" },
+      include: { _count: { select: { documents: true } } },
+    }),
+    db.document.findMany({
+      where: projectFilter ? { projectId: projectFilter } : undefined,
+      orderBy: { updatedAt: "desc" },
+      include: { project: { select: { name: true } } },
+    }),
+  ]);
+
+  if (projects.length === 0) {
+    return (
+      <div className="empty-state">
+        <p>No documents yet.</p>
+        <p>
+          <Link href="/import">Import your first sheet →</Link>
+        </p>
+      </div>
+    );
+  }
+
   return (
-    <div className={styles.page}>
-      <main className={styles.main}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className={styles.intro}>
-          <h1>To get started, edit the page.tsx file.</h1>
-          <p>
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className={styles.ctas}>
-          <a
-            className={styles.primary}
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className={styles.logo}
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className={styles.secondary}
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
+    <div className="library">
+      <aside className="library-sidebar">
+        <h2>Projects</h2>
+        <ul>
+          <li>
+            <Link href="/" className={projectFilter ? "" : "active"}>
+              All
+            </Link>
+          </li>
+          {projects.map((project) => (
+            <li key={project.id}>
+              <Link
+                href={`/?project=${project.id}`}
+                className={projectFilter === project.id ? "active" : ""}
+              >
+                {project.name} ({project._count.documents})
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </aside>
+      <section className="library-list">
+        <h2>Documents</h2>
+        <ul className="doc-list">
+          {documents.map((doc) => (
+            <li key={doc.id}>
+              <Link href={`/documents/${doc.id}`} className="doc-row">
+                <span className="doc-title">{doc.title}</span>
+                {doc.artist && <span className="doc-artist">{doc.artist}</span>}
+                <span className="badge">{doc.kind}</span>
+                <span className="badge">{doc.sourceFormat}</span>
+                <span className="doc-project">{doc.project.name}</span>
+              </Link>
+            </li>
+          ))}
+        </ul>
+        {documents.length === 0 && (
+          <p className="empty-state">No documents in this project.</p>
+        )}
+      </section>
     </div>
   );
 }

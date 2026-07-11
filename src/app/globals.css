@@ -47,3 +47,222 @@ a {
     color-scheme: dark;
   }
 }
+
+/* App chrome */
+
+.app-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.9rem 1.5rem;
+  border-bottom: 1px solid color-mix(in srgb, var(--foreground) 14%, transparent);
+}
+
+.app-logo {
+  font-weight: 700;
+  font-size: 1.05rem;
+  letter-spacing: 0.01em;
+}
+
+.app-nav-link {
+  font-size: 0.9rem;
+  padding: 0.35rem 0.8rem;
+  border: 1px solid color-mix(in srgb, var(--foreground) 25%, transparent);
+  border-radius: 6px;
+}
+
+.app-main {
+  flex: 1;
+  padding: 1.5rem;
+  max-width: 64rem;
+  width: 100%;
+  margin: 0 auto;
+}
+
+/* Library */
+
+.library {
+  display: grid;
+  grid-template-columns: 12rem 1fr;
+  gap: 1.5rem;
+}
+
+.library-sidebar h2,
+.library-list h2 {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  opacity: 0.6;
+  margin-bottom: 0.6rem;
+}
+
+.library-sidebar ul,
+.doc-list {
+  list-style: none;
+}
+
+.library-sidebar li a {
+  display: block;
+  padding: 0.3rem 0.5rem;
+  border-radius: 5px;
+  font-size: 0.92rem;
+}
+
+.library-sidebar li a:hover,
+.library-sidebar li a.active {
+  background: color-mix(in srgb, var(--foreground) 8%, transparent);
+}
+
+.doc-row {
+  display: flex;
+  align-items: baseline;
+  gap: 0.7rem;
+  padding: 0.55rem 0.5rem;
+  border-bottom: 1px solid color-mix(in srgb, var(--foreground) 8%, transparent);
+}
+
+.doc-row:hover {
+  background: color-mix(in srgb, var(--foreground) 5%, transparent);
+}
+
+.doc-title {
+  font-weight: 600;
+}
+
+.doc-artist,
+.doc-project {
+  font-size: 0.85rem;
+  opacity: 0.65;
+}
+
+.doc-project {
+  margin-left: auto;
+}
+
+.badge {
+  font-size: 0.7rem;
+  padding: 0.1rem 0.45rem;
+  border-radius: 99px;
+  border: 1px solid color-mix(in srgb, var(--foreground) 25%, transparent);
+  opacity: 0.75;
+  white-space: nowrap;
+}
+
+.empty-state {
+  padding: 3rem 1rem;
+  text-align: center;
+  opacity: 0.7;
+}
+
+/* Forms */
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+  max-width: 40rem;
+}
+
+.form label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.form textarea,
+.form input[type="text"] {
+  font: inherit;
+  padding: 0.5rem 0.6rem;
+  border: 1px solid color-mix(in srgb, var(--foreground) 25%, transparent);
+  border-radius: 6px;
+  background: transparent;
+  color: inherit;
+}
+
+.form textarea {
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 0.8rem;
+  min-height: 8rem;
+}
+
+.form button {
+  align-self: flex-start;
+  font: inherit;
+  font-weight: 600;
+  padding: 0.5rem 1.1rem;
+  border-radius: 6px;
+  border: 1px solid color-mix(in srgb, var(--foreground) 30%, transparent);
+  background: var(--foreground);
+  color: var(--background);
+  cursor: pointer;
+}
+
+.form button:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+.form-error {
+  color: #c0392b;
+  font-size: 0.9rem;
+}
+
+/* Document page */
+
+.doc-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.7rem;
+  margin-bottom: 1.2rem;
+}
+
+.doc-meta h1 {
+  font-size: 1.4rem;
+}
+
+.doc-meta-item {
+  font-size: 0.85rem;
+  opacity: 0.7;
+}
+
+.chart-section {
+  margin-bottom: 1.4rem;
+}
+
+.chart-section h3 {
+  font-size: 0.95rem;
+  margin-bottom: 0.4rem;
+}
+
+.chart-bars {
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 0.9rem;
+  line-height: 1.9;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.annotation {
+  font-size: 0.85rem;
+  font-style: italic;
+  opacity: 0.8;
+  margin-top: 0.3rem;
+}
+
+.source-block {
+  margin-top: 2rem;
+  font-size: 0.85rem;
+}
+
+.source-block pre {
+  margin-top: 0.5rem;
+  padding: 0.8rem;
+  border: 1px solid color-mix(in srgb, var(--foreground) 15%, transparent);
+  border-radius: 6px;
+  overflow-x: auto;
+  font-size: 0.75rem;
+  line-height: 1.6;
+}
