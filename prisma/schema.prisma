@@ -23,6 +23,7 @@ model Document {
   kind          String // 'music' | 'notes'
   sourceFormat  String // 'ireal' | 'ocr-chords' | 'scan'
   sourceFileRef String? // path under data/uploads/, or original ireal string
+  sourceText    String? // per-song extracted source (e.g. descrambled iReal chart)
   content       String // DocumentContent as JSON
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
