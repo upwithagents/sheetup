@@ -42,3 +42,9 @@ next-env.d.ts
 
 # local data (sqlite db, uploads)
 /data/
+
+/src/generated/prisma
+
+# generated prisma client
+/src/generated/
+!.env.example

@@ -1,0 +1,29 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+model Project {
+  id        String     @id @default(cuid())
+  name      String     @unique
+  createdAt DateTime   @default(now())
+  documents Document[]
+}
+
+model Document {
+  id            String   @id @default(cuid())
+  projectId     String
+  project       Project  @relation(fields: [projectId], references: [id])
+  title         String
+  artist        String?
+  kind          String // 'music' | 'notes'
+  sourceFormat  String // 'ireal' | 'ocr-chords' | 'scan'
+  sourceFileRef String? // path under data/uploads/, or original ireal string
+  content       String // DocumentContent as JSON
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}
