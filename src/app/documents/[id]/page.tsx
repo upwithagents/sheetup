@@ -41,6 +41,9 @@ export default async function DocumentPage({
             Download PDF
           </a>
           <PrintButton />
+          <Link href={`/documents/${doc.id}/edit`} className="app-nav-link">
+            Edit
+          </Link>
         </span>
       </div>
 
