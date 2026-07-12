@@ -48,3 +48,6 @@ next-env.d.ts
 # generated prisma client
 /src/generated/
 !.env.example
+
+# tesseract.js downloads its language model into cwd
+*.traineddata
