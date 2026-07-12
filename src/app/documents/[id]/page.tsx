@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { db } from "@/lib/db";
 import { parseContent } from "@/core/content";
 import ChartView from "@/components/ChartView";
+import PrintButton from "@/components/PrintButton";
 
 export const dynamic = "force-dynamic";
 
@@ -34,6 +35,12 @@ export default async function DocumentPage({
         {meta.style && <span className="doc-meta-item">{meta.style}</span>}
         <span className="doc-meta-item">
           in <Link href={`/?project=${doc.project.id}`}>{doc.project.name}</Link>
+        </span>
+        <span className="doc-actions">
+          <a href={`/api/documents/${doc.id}/pdf`} className="button-primary">
+            Download PDF
+          </a>
+          <PrintButton />
         </span>
       </div>
 

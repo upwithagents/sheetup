@@ -11,7 +11,10 @@ const CONTENT_TYPES: Record<string, string> = {
   ".pdf": "application/pdf",
 };
 
-export async function GET(_req: Request, ctx: RouteContext<"/api/documents/[id]/file">) {
+export async function GET(
+  _req: Request,
+  ctx: { params: Promise<{ id: string }> }
+) {
   const { id } = await ctx.params;
   const doc = await db.document.findUnique({
     where: { id },

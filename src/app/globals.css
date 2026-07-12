@@ -440,3 +440,38 @@ a {
   font-size: 0.75rem;
   line-height: 1.6;
 }
+
+/* Document actions + print */
+
+.doc-actions {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+@media print {
+  .app-header,
+  .doc-actions,
+  .source-block,
+  .doc-source-image {
+    display: none !important;
+  }
+
+  .app-main {
+    max-width: none;
+    padding: 0;
+  }
+
+  .chart {
+    max-width: none;
+  }
+
+  .bar-cell {
+    break-inside: avoid;
+  }
+
+  .chart-section {
+    break-inside: avoid-page;
+  }
+}
