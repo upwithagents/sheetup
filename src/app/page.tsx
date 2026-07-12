@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { db } from "@/lib/db";
+import ProjectTools from "@/components/ProjectTools";
 
 export const dynamic = "force-dynamic";
 
@@ -59,6 +60,17 @@ export default async function LibraryPage({
             </li>
           ))}
         </ul>
+        {projectFilter &&
+          (() => {
+            const selected = projects.find((p) => p.id === projectFilter);
+            return selected ? (
+              <ProjectTools
+                projectId={selected.id}
+                projectName={selected.name}
+                documentCount={selected._count.documents}
+              />
+            ) : null;
+          })()}
       </aside>
       <section className="library-list">
         <div className="library-header">
