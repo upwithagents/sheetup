@@ -1,5 +1,5 @@
 import { mkdir, writeFile } from "node:fs/promises";
-import { join, extname } from "node:path";
+import { join, extname, relative } from "node:path";
 import { randomUUID } from "node:crypto";
 import type { PrismaClient } from "@/generated/prisma/client";
 import { parseOcrText } from "@/core/ocr";
@@ -8,7 +8,10 @@ import { db } from "./db";
 
 export class UnsupportedFileError extends Error {}
 
-export const UPLOADS_DIR = join(process.cwd(), "data", "uploads");
+// Overridable so tests never touch the real uploads directory.
+export const UPLOADS_DIR = process.env.SHEETUP_UPLOADS_DIR
+  ? join(process.cwd(), process.env.SHEETUP_UPLOADS_DIR)
+  : join(process.cwd(), "data", "uploads");
 
 const IMAGE_TYPES: Record<string, string> = { "image/jpeg": ".jpg", "image/png": ".png" };
 const PDF_TYPE = "application/pdf";
@@ -53,8 +56,9 @@ export async function importUpload(
   const ext = isPdf ? ".pdf" : IMAGE_TYPES[mimeType];
   const storedName = `${randomUUID()}${ext}`;
   await mkdir(UPLOADS_DIR, { recursive: true });
-  await writeFile(join(UPLOADS_DIR, storedName), data);
-  const sourceFileRef = join("data", "uploads", storedName);
+  const storedPath = join(UPLOADS_DIR, storedName);
+  await writeFile(storedPath, data);
+  const sourceFileRef = relative(process.cwd(), storedPath);
 
   let kind = "notes";
   let sourceFormat = "scan";

@@ -25,9 +25,14 @@ export default async function LibraryPage({
   if (projects.length === 0) {
     return (
       <div className="empty-state">
-        <p>No documents yet.</p>
-        <p>
-          <Link href="/import">Import your first sheet →</Link>
+        <p>No sheets yet.</p>
+        <p style={{ marginTop: "0.8rem" }}>
+          <Link href="/import" className="button-primary">
+            Upload a photo or scan of your sheet
+          </Link>
+        </p>
+        <p style={{ marginTop: "0.6rem", fontSize: "0.85rem" }}>
+          JPG, PNG, PDF — or an iReal Pro chart
         </p>
       </div>
     );
@@ -56,7 +61,12 @@ export default async function LibraryPage({
         </ul>
       </aside>
       <section className="library-list">
-        <h2>Documents</h2>
+        <div className="library-header">
+          <h2>Documents</h2>
+          <Link href="/import" className="button-primary">
+            Upload sheet
+          </Link>
+        </div>
         <ul className="doc-list">
           {documents.map((doc) => (
             <li key={doc.id}>

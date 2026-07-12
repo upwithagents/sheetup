@@ -19,9 +19,10 @@ export async function GET(_req: Request, ctx: RouteContext<"/api/documents/[id]/
   });
   if (!doc?.sourceFileRef) return new Response("not found", { status: 404 });
 
-  // Serve only files that actually live inside the uploads directory.
-  const filePath = path.resolve(process.cwd(), doc.sourceFileRef);
-  if (!filePath.startsWith(UPLOADS_DIR + path.sep) || !existsSync(filePath)) {
+  // Serve only files that actually live inside the uploads directory —
+  // basename() strips any path segments, so traversal is impossible.
+  const filePath = path.join(UPLOADS_DIR, path.basename(doc.sourceFileRef));
+  if (!existsSync(filePath)) {
     return new Response("not found", { status: 404 });
   }
 

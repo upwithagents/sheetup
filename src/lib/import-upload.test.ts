@@ -43,7 +43,7 @@ describe("importUpload", () => {
     expect(doc.sourceText).toBe(CHORD_SHEET_TEXT);
     expect(parseContent(doc.content).sections[0].label).toBe("Verse");
 
-    expect(doc.sourceFileRef).toMatch(/^data\/uploads\/.+\.jpg$/);
+    expect(doc.sourceFileRef).toMatch(/^data\/test-uploads\/.+\.jpg$/);
     const stored = join(process.cwd(), doc.sourceFileRef!);
     expect(existsSync(stored)).toBe(true);
     expect(readFileSync(stored)).toEqual(jpeg);

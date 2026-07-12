@@ -69,6 +69,22 @@ export default async function DocumentPage({
         </span>
       </div>
 
+      {doc.sourceFileRef?.startsWith("data/uploads/") && !doc.sourceFileRef.endsWith(".pdf") && (
+        // eslint-disable-next-line @next/next/no-img-element -- served from our own file route
+        <img
+          src={`/api/documents/${doc.id}/file`}
+          alt={`Original scan of ${doc.title}`}
+          className="doc-source-image"
+        />
+      )}
+      {doc.sourceFileRef?.endsWith(".pdf") && (
+        <p className="doc-meta-item">
+          <a href={`/api/documents/${doc.id}/file`} target="_blank">
+            View original PDF →
+          </a>
+        </p>
+      )}
+
       {content.sections.map((section) => (
         <section key={section.id} className="chart-section">
           {section.label && <h3>{section.label}</h3>}

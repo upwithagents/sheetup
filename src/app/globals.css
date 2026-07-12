@@ -257,6 +257,83 @@ a {
   font-size: 0.85rem;
 }
 
+/* Upload dropzone */
+
+.dropzone {
+  border: 2px dashed color-mix(in srgb, var(--foreground) 30%, transparent);
+  border-radius: 10px;
+  padding: 3rem 1.5rem;
+  text-align: center;
+  cursor: pointer;
+  max-width: 40rem;
+  transition: border-color 0.15s, background 0.15s;
+}
+
+.dropzone:hover,
+.dropzone-over {
+  border-color: color-mix(in srgb, var(--foreground) 60%, transparent);
+  background: color-mix(in srgb, var(--foreground) 4%, transparent);
+}
+
+.dropzone-title {
+  font-weight: 600;
+  margin-bottom: 0.3rem;
+}
+
+.dropzone-hint {
+  font-size: 0.85rem;
+  opacity: 0.6;
+}
+
+.dropzone-busy {
+  font-weight: 600;
+  opacity: 0.7;
+}
+
+.ireal-section {
+  margin-top: 2rem;
+  max-width: 40rem;
+}
+
+.link-button {
+  background: none;
+  border: none;
+  color: inherit;
+  font: inherit;
+  font-size: 0.9rem;
+  text-decoration: underline;
+  opacity: 0.7;
+  cursor: pointer;
+  padding: 0;
+}
+
+.link-button:hover {
+  opacity: 1;
+}
+
+.library-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.6rem;
+}
+
+.button-primary {
+  font-size: 0.85rem;
+  font-weight: 600;
+  padding: 0.35rem 0.9rem;
+  border-radius: 6px;
+  background: var(--foreground);
+  color: var(--background);
+}
+
+.doc-source-image {
+  max-width: 100%;
+  border: 1px solid color-mix(in srgb, var(--foreground) 15%, transparent);
+  border-radius: 6px;
+  margin: 1rem 0;
+}
+
 .source-block pre {
   margin-top: 0.5rem;
   padding: 0.8rem;
