@@ -8,7 +8,7 @@ export default defineConfig({
     // db-backed test files share data/test.db — run files serially
     fileParallelism: false,
     // keep test uploads away from the real data/uploads directory
-    env: { SHEETUP_UPLOADS_DIR: "data/test-uploads" },
+    env: { SHEETUP_UPLOADS_SUBDIR: "test-uploads" },
   },
   resolve: { alias: { "@": path.resolve(__dirname, "src") } },
 });

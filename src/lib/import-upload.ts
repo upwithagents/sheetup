@@ -8,10 +8,13 @@ import { db } from "./db";
 
 export class UnsupportedFileError extends Error {}
 
-// Overridable so tests never touch the real uploads directory.
-export const UPLOADS_DIR = process.env.SHEETUP_UPLOADS_DIR
-  ? join(process.cwd(), process.env.SHEETUP_UPLOADS_DIR)
-  : join(process.cwd(), "data", "uploads");
+// Subfolder overridable so tests never touch the real uploads directory;
+// statically scoped under data/ (keeps Next.js file tracing contained).
+export const UPLOADS_DIR = join(
+  process.cwd(),
+  "data",
+  process.env.SHEETUP_UPLOADS_SUBDIR ?? "uploads"
+);
 
 const IMAGE_TYPES: Record<string, string> = { "image/jpeg": ".jpg", "image/png": ".png" };
 const PDF_TYPE = "application/pdf";
