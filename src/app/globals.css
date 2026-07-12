@@ -228,21 +228,118 @@ a {
   opacity: 0.7;
 }
 
-.chart-section {
-  margin-bottom: 1.4rem;
+.chart {
+  --chord-color: #b45309;
+  max-width: 48rem;
 }
 
-.chart-section h3 {
-  font-size: 0.95rem;
+@media (prefers-color-scheme: dark) {
+  .chart {
+    --chord-color: #fbbf24;
+  }
+}
+
+.chart-section {
+  margin-bottom: 1.6rem;
+}
+
+.section-chip {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 0.15rem 0.6rem;
+  border-radius: 4px;
+  background: color-mix(in srgb, var(--foreground) 10%, transparent);
+  margin-bottom: 0.5rem;
+}
+
+/* Bar grids (chord charts) */
+
+.bar-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
   margin-bottom: 0.4rem;
 }
 
-.chart-bars {
+@media (max-width: 40rem) {
+  .bar-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.bar-cell {
+  position: relative;
+  border-left: 1.5px solid color-mix(in srgb, var(--foreground) 45%, transparent);
+  border-bottom: 1px solid color-mix(in srgb, var(--foreground) 12%, transparent);
+  padding: 0.55rem 0.5rem 0.45rem;
+  min-height: 2.4rem;
+}
+
+.bar-grid .bar-cell:last-child {
+  border-right: 1.5px solid color-mix(in srgb, var(--foreground) 45%, transparent);
+}
+
+.bar-repeat-start {
+  border-left-width: 4px;
+  border-left-style: double;
+}
+
+.bar-repeat-end {
+  border-right: 4px double color-mix(in srgb, var(--foreground) 45%, transparent);
+}
+
+.bar-ending {
+  position: absolute;
+  top: 0.1rem;
+  left: 0.3rem;
+  font-size: 0.65rem;
+  font-weight: 700;
+  opacity: 0.7;
+}
+
+.bar-chords {
   font-family: var(--font-geist-mono), monospace;
-  font-size: 0.9rem;
-  line-height: 1.9;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--chord-color);
+}
+
+.bar-mark {
+  color: var(--foreground);
+  opacity: 0.7;
+}
+
+.bar-repeat-sign {
+  color: var(--foreground);
+  opacity: 0.6;
+}
+
+.bar-raw {
+  font-size: 0.7rem;
+  color: var(--foreground);
+  opacity: 0.45;
+}
+
+/* Lyric lines with chords above */
+
+.lyric-line {
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 0.92rem;
+  margin-bottom: 0.35rem;
   white-space: pre-wrap;
   word-break: break-word;
+}
+
+.lyric-chords {
+  color: var(--chord-color);
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.lyric-text {
+  line-height: 1.45;
 }
 
 .annotation {
