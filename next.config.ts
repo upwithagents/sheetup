@@ -7,6 +7,7 @@ const nextConfig: NextConfig = {
   // Pin the project root: worktree checkouts otherwise make Next infer the
   // outer repo (multiple lockfiles) and write artifacts there.
   turbopack: { root: __dirname },
+  basePath: "/sheetup",
 };
 
 export default nextConfig;
