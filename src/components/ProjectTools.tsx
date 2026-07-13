@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { withBasePath } from "@/lib/base-path";
 
 export default function ProjectTools({
   projectId,
@@ -21,7 +22,7 @@ export default function ProjectTools({
     if (name.trim() === "" || name.trim() === projectName) return;
     setBusy(true);
     setError(null);
-    const res = await fetch(`/api/projects/${projectId}`, {
+    const res = await fetch(withBasePath(`/api/projects/${projectId}`), {
       method: "PATCH",
       headers: { "content-type": "application/json" },
       body: JSON.stringify({ name }),
@@ -35,7 +36,7 @@ export default function ProjectTools({
     if (!confirm(`Delete project "${projectName}"?`)) return;
     setBusy(true);
     setError(null);
-    const res = await fetch(`/api/projects/${projectId}`, { method: "DELETE" });
+    const res = await fetch(withBasePath(`/api/projects/${projectId}`), { method: "DELETE" });
     setBusy(false);
     if (res.ok) {
       router.push("/");

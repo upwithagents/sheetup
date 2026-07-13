@@ -2,6 +2,7 @@
 
 import { useRef, useState } from "react";
 import { useRouter } from "next/navigation";
+import { withBasePath } from "@/lib/base-path";
 
 export default function ImportPage() {
   const router = useRouter();
@@ -21,7 +22,7 @@ export default function ImportPage() {
       const form = new FormData();
       form.append("file", file);
       form.append("projectName", projectName);
-      const res = await fetch("/api/import/upload", { method: "POST", body: form });
+      const res = await fetch(withBasePath("/api/import/upload"), { method: "POST", body: form });
       const data = await res.json();
       if (!res.ok) {
         setError(data.error ?? `upload failed (${res.status})`);
@@ -40,7 +41,7 @@ export default function ImportPage() {
     setBusy("ireal");
     setError(null);
     try {
-      const res = await fetch("/api/import/ireal", {
+      const res = await fetch(withBasePath("/api/import/ireal"), {
         method: "POST",
         headers: { "content-type": "application/json" },
         body: JSON.stringify({ url: irealUrl, projectName }),

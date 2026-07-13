@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import type { Annotation, DocumentContent, Line, Section } from "@/core/model";
 import { buildChordRow } from "@/core/render/chordline";
 import { parseChordRowInput, barsToText, parseBarsInput } from "@/core/edit/text";
+import { withBasePath } from "@/lib/base-path";
 
 interface Props {
   documentId: string;
@@ -83,7 +84,7 @@ export default function DocumentEditor({
     setBusy(true);
     setError(null);
     try {
-      const res = await fetch(`/api/documents/${documentId}`, {
+      const res = await fetch(withBasePath(`/api/documents/${documentId}`), {
         method: "PATCH",
         headers: { "content-type": "application/json" },
         body: JSON.stringify({ title, artist: artist.trim() || null, content }),
@@ -105,7 +106,7 @@ export default function DocumentEditor({
   async function deleteDocument() {
     if (!confirm(`Delete "${title}"? This cannot be undone.`)) return;
     setBusy(true);
-    const res = await fetch(`/api/documents/${documentId}`, { method: "DELETE" });
+    const res = await fetch(withBasePath(`/api/documents/${documentId}`), { method: "DELETE" });
     if (res.ok) {
       router.push("/");
       router.refresh();

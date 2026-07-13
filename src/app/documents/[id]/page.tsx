@@ -4,6 +4,7 @@ import { db } from "@/lib/db";
 import { parseContent } from "@/core/content";
 import ChartView from "@/components/ChartView";
 import PrintButton from "@/components/PrintButton";
+import { withBasePath } from "@/lib/base-path";
 
 export const dynamic = "force-dynamic";
 
@@ -37,7 +38,7 @@ export default async function DocumentPage({
           in <Link href={`/?project=${doc.project.id}`}>{doc.project.name}</Link>
         </span>
         <span className="doc-actions">
-          <a href={`/api/documents/${doc.id}/pdf`} className="button-primary">
+          <a href={withBasePath(`/api/documents/${doc.id}/pdf`)} className="button-primary">
             Download PDF
           </a>
           <PrintButton />
@@ -50,14 +51,14 @@ export default async function DocumentPage({
       {doc.sourceFileRef?.startsWith("data/uploads/") && !doc.sourceFileRef.endsWith(".pdf") && (
         // eslint-disable-next-line @next/next/no-img-element -- served from our own file route
         <img
-          src={`/api/documents/${doc.id}/file`}
+          src={withBasePath(`/api/documents/${doc.id}/file`)}
           alt={`Original scan of ${doc.title}`}
           className="doc-source-image"
         />
       )}
       {doc.sourceFileRef?.endsWith(".pdf") && (
         <p className="doc-meta-item">
-          <a href={`/api/documents/${doc.id}/file`} target="_blank">
+          <a href={withBasePath(`/api/documents/${doc.id}/file`)} target="_blank">
             View original PDF →
           </a>
         </p>
