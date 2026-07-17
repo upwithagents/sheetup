@@ -1,6 +1,8 @@
-/* Theme (paper/ink + terracotta accent) comes from the design system.
-   Its stylesheet already imports tailwindcss. */
-@import "@upwithagents/ui/styles.css";
+/* PortalHeader's theme (paper/ink + terracotta accent), scoped to
+   [data-portal-chrome] so it doesn't collide with this app's own
+   --background/--foreground below. Its stylesheet already imports
+   tailwindcss. */
+@import "@upwithagents/ui/header-scope.css";
 /* Tailwind ignores node_modules by default; scan the UI package's classes. */
 @source "../../node_modules/@upwithagents/ui/dist";
 
