@@ -1,3 +1,9 @@
+/* Theme (paper/ink + terracotta accent) comes from the design system.
+   Its stylesheet already imports tailwindcss. */
+@import "@upwithagents/ui/styles.css";
+/* Tailwind ignores node_modules by default; scan the UI package's classes. */
+@source "../../node_modules/@upwithagents/ui/dist";
+
 :root {
   --background: #ffffff;
   --foreground: #171717;
