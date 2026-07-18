@@ -1,22 +1,11 @@
-/* PortalHeader's theme (paper/ink + terracotta accent), scoped to
-   [data-portal-chrome] so it doesn't collide with this app's own
-   --background/--foreground below. Its stylesheet already imports
-   tailwindcss. */
-@import "@upwithagents/ui/header-scope.css";
+/* Full shared theme (paper/ink + terracotta accent) — sheetup adopts it
+   app-wide, not just for the header. --background and --foreground are
+   defined by this import; sheetup no longer overrides them locally, so
+   the shared palette (and its .dark class, not prefers-color-scheme) is
+   what's in effect now. */
+@import "@upwithagents/ui/styles.css";
 /* Tailwind ignores node_modules by default; scan the UI package's classes. */
 @source "../../node_modules/@upwithagents/ui/dist";
-
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
 
 html {
   height: 100%;
@@ -213,7 +202,7 @@ a {
 }
 
 .form-error {
-  color: #c0392b;
+  color: var(--color-danger);
   font-size: 0.9rem;
 }
 
@@ -610,8 +599,8 @@ a {
 
 .editor-delete {
   margin-left: auto;
-  color: #c0392b !important;
-  border-color: #c0392b !important;
+  color: var(--color-danger) !important;
+  border-color: var(--color-danger) !important;
 }
 
 /* Project tools */
