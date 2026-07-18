@@ -30,11 +30,19 @@ body {
 
 * {
   box-sizing: border-box;
+}
+
+/* Excludes the shared PortalHeader's [data-portal-chrome] wrapper and its
+   descendants: this app's own CSS is unlayered while the header's padding
+   comes from Tailwind utility classes inside `@layer utilities` — unlayered
+   styles always beat layered ones regardless of specificity, so an
+   unscoped reset here would zero out the header's padding entirely. */
+*:not(:where([data-portal-chrome], [data-portal-chrome] *)) {
   padding: 0;
   margin: 0;
 }
 
-a {
+a:not(:where([data-portal-chrome], [data-portal-chrome] *)) {
   color: inherit;
   text-decoration: none;
 }
