@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Archivo, Inter, IBM_Plex_Mono } from "next/font/google";
+import { ThemeScript } from "@upwithagents/ui";
 import PortalChrome from "@/components/PortalChrome";
 import "./globals.css";
 
@@ -33,6 +34,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${archivo.variable} ${inter.variable} ${plexMono.variable}`}>
+      <head>
+        <ThemeScript />
+      </head>
       <body>
         <PortalChrome />
         <header className="app-header">
