@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { PortalHeader, type PortalHeaderApp } from "@upwithagents/ui";
+import { AscentProgress, PortalHeader, type PortalHeaderApp } from "@upwithagents/ui";
 
 interface PortalContext {
   userName?: string;
@@ -31,10 +31,11 @@ export default function PortalChrome() {
   // server-rendered markup and the initial client render identical (both
   // null), avoiding a hydration mismatch from PortalHeader's ThemeToggle
   // reading window.matchMedia/localStorage.
-  if (!context) return null;
+  if (!context) return <AscentProgress />;
 
   return (
     <div data-portal-chrome>
+      <AscentProgress />
       <PortalHeader
         currentSlug="sheetup"
         apps={context.apps}
