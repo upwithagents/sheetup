@@ -34,20 +34,26 @@ export default function PortalChrome({ children }: { children: React.ReactNode }
   // together also keeps the server/initial-client render identical (both
   // null), avoiding a hydration mismatch from PortalHeader's ThemeToggle
   // reading window.matchMedia/localStorage.
-  if (!context) return <AscentProgress />;
-
   return (
     <>
-      <div data-portal-chrome>
-        <PortalHeader
-          currentSlug="sheetup"
-          apps={context.apps}
-          userName={context.userName}
-          userEmail={context.userEmail}
-          logoutSlot={<a href="/api/auth/signout">Log out</a>}
-        />
-      </div>
-      {children}
+      {/* Mounted unconditionally: unmounting it the instant `context`
+          resolves would cut its own fill/fade animation short mid-transition,
+          which read as a flicker or a broken/discontinuous bar. */}
+      <AscentProgress />
+      {context && (
+        <>
+          <div data-portal-chrome>
+            <PortalHeader
+              currentSlug="sheetup"
+              apps={context.apps}
+              userName={context.userName}
+              userEmail={context.userEmail}
+              logoutSlot={<a href="/api/auth/signout">Log out</a>}
+            />
+          </div>
+          {children}
+        </>
+      )}
     </>
   );
 }
