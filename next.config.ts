@@ -6,9 +6,11 @@ import type { NextConfig } from "next";
 const BASE_PATH = "/sheetup";
 
 const nextConfig: NextConfig = {
-  // tesseract.js spawns worker threads from files inside its package —
-  // bundling breaks those paths, so load it from node_modules at runtime.
-  serverExternalPackages: ["tesseract.js"],
+  // tesseract.js spawns worker threads from files inside its package, and
+  // better-sqlite3's native addon locates itself via V8 stack traces
+  // (broken by webpack's rewritten require calls) — both need to load
+  // from node_modules at runtime instead of being bundled.
+  serverExternalPackages: ["tesseract.js", "better-sqlite3", "@prisma/adapter-better-sqlite3"],
   // Pin the project root: worktree checkouts otherwise make Next infer the
   // outer repo (multiple lockfiles) and write artifacts there.
   turbopack: { root: __dirname },
