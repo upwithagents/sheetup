@@ -63,12 +63,6 @@ a:not(:where([data-portal-chrome], [data-portal-chrome] *)) {
   border-bottom: 1px solid color-mix(in srgb, var(--foreground) 14%, transparent);
 }
 
-.app-logo {
-  font-weight: 700;
-  font-size: 1.05rem;
-  letter-spacing: 0.01em;
-}
-
 .app-nav-link {
   font-size: 0.9rem;
   padding: 0.35rem 0.8rem;

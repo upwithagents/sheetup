@@ -44,9 +44,6 @@ export default function RootLayout({
       <body>
         <PortalChrome>
           <header className="app-header">
-            <Link href="/" className="app-logo">
-              Sheetup
-            </Link>
             <nav>
               <Link href="/import" className="app-nav-link">
                 Import
