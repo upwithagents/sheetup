@@ -9,7 +9,7 @@ interface PortalContext {
   apps: PortalHeaderApp[];
 }
 
-export default function PortalChrome() {
+export default function PortalChrome({ children }: { children: React.ReactNode }) {
   const [context, setContext] = useState<PortalContext | null>(null);
 
   useEffect(() => {
@@ -27,22 +27,27 @@ export default function PortalChrome() {
     };
   }, []);
 
-  // Render nothing until the client-side fetch resolves: this keeps the
-  // server-rendered markup and the initial client render identical (both
+  // Hold the app's own content back behind the progress bar too, not just
+  // the header - otherwise it renders immediately (server-rendered markup
+  // has no dependency on this fetch) while the header pops in later once
+  // the fetch resolves, shoving everything else down the page. Gating both
+  // together also keeps the server/initial-client render identical (both
   // null), avoiding a hydration mismatch from PortalHeader's ThemeToggle
   // reading window.matchMedia/localStorage.
   if (!context) return <AscentProgress />;
 
   return (
-    <div data-portal-chrome>
-      <AscentProgress />
-      <PortalHeader
-        currentSlug="sheetup"
-        apps={context.apps}
-        userName={context.userName}
-        userEmail={context.userEmail}
-        logoutSlot={<a href="/api/auth/signout">Log out</a>}
-      />
-    </div>
+    <>
+      <div data-portal-chrome>
+        <PortalHeader
+          currentSlug="sheetup"
+          apps={context.apps}
+          userName={context.userName}
+          userEmail={context.userEmail}
+          logoutSlot={<a href="/api/auth/signout">Log out</a>}
+        />
+      </div>
+      {children}
+    </>
   );
 }

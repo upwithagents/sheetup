@@ -42,18 +42,19 @@ export default function RootLayout({
         <ThemeScript />
       </head>
       <body>
-        <PortalChrome />
-        <header className="app-header">
-          <Link href="/" className="app-logo">
-            Sheetup
-          </Link>
-          <nav>
-            <Link href="/import" className="app-nav-link">
-              Import
+        <PortalChrome>
+          <header className="app-header">
+            <Link href="/" className="app-logo">
+              Sheetup
             </Link>
-          </nav>
-        </header>
-        <main className="app-main">{children}</main>
+            <nav>
+              <Link href="/import" className="app-nav-link">
+                Import
+              </Link>
+            </nav>
+          </header>
+          <main className="app-main">{children}</main>
+        </PortalChrome>
       </body>
     </html>
   );
