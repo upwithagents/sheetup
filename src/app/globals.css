@@ -55,14 +55,6 @@ a:not(:where([data-portal-chrome], [data-portal-chrome] *)) {
 
 /* App chrome */
 
-.app-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0.9rem 1.5rem;
-  border-bottom: 1px solid color-mix(in srgb, var(--foreground) 14%, transparent);
-}
-
 .app-nav-link {
   font-size: 0.9rem;
   padding: 0.35rem 0.8rem;
@@ -450,7 +442,6 @@ a:not(:where([data-portal-chrome], [data-portal-chrome] *)) {
 }
 
 @media print {
-  .app-header,
   .doc-actions,
   .source-block,
   .doc-source-image {

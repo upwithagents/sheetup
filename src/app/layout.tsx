@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import { Archivo, Inter, IBM_Plex_Mono } from "next/font/google";
-import { ThemeScript } from "@upwithagents/ui";
+import { AppNav, ThemeScript } from "@upwithagents/ui";
 import PortalChrome from "@/components/PortalChrome";
 import "./globals.css";
 
@@ -43,13 +42,12 @@ export default function RootLayout({
       </head>
       <body>
         <PortalChrome>
-          <header className="app-header">
-            <nav>
-              <Link href="/import" className="app-nav-link">
-                Import
-              </Link>
-            </nav>
-          </header>
+          <AppNav
+            links={[
+              { href: "/", label: "Dashboard" },
+              { href: "/import", label: "Import" },
+            ]}
+          />
           <main className="app-main">{children}</main>
         </PortalChrome>
       </body>
